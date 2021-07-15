@@ -1,0 +1,14 @@
+###Linux Kernel
+
+###Kernel is reponsible for below 4 activities:
+1. Memory Management
+2. Process Management
+3. Device drivers
+4. system calls and security
+
+###How Memory managements works in kernel?
+There are two types of spaces in Kernel
+1. Kernel space-->> Memory occupied by kernel itself to do its job
+2. User space--->  users and applications can make use of rest of memory
+
+
