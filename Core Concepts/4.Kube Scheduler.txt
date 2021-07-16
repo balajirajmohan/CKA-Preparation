@@ -1,0 +1,13 @@
+Kube scheduler is one of the key component to identify the right node for a pod based on below factos:
+    1. labels and selectors
+    2. Taints and Tolerations
+    3. Node affinity
+    4. Resources and requirments
+
+Kube scheduler will not actually schedule the pods into nodes. Once the scheduler identifies the right node, it will notify
+the concerned kubelet in the worker node and kubelet will take care of scheduling the nodes.
+
+
+How to install kube scheduler?
+if you are using kubeadm, scheduler will be deployed automatically on kube-systemt namespace.
+if you are setting up kubernetes from scratch- you have to download from github and install in on all master node.
