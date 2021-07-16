@@ -1,0 +1,12 @@
+kube proxy is a more of a network component that sits in all worker nodes.
+By default, all pods inside kubernetes cluster can talk to each other with the help of pod networking.
+Pods can talk to each other using their IP and we know that pods are ephimeral in nature and their ip's are temporary
+So we recommend to use service and if we create a service, pods can talk to service and service routes the traffic to backend pods
+Does that mean service also belongs to pod network? --- > No, service is just an object and it is not part of any pod networks.
+
+As soon as you create a service, it will get an IP. you can talk to a service using its name or IP and it will route the traffic to backend pods.
+service uses iptables concept to route traffic to backend pods and kube proxy is the networking piece which is responsible for it.
+
+How to install kube proxy?? 
+kubeadm- it will automatically install kube proxy in kube-systems namespace
+manual way- you have to install the binaries and configure it as a service on all worker nodes
