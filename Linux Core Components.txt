@@ -11,4 +11,23 @@ There are two types of spaces in Kernel
 1. Kernel space-->> Memory occupied by kernel itself to do its job
 2. User space--->  users and applications can make use of rest of memory
 
+###Linux Boot Process
+BIOS Post
+Boot Loader (GRUB2)
+Kernel Initialization
+INIT Process uing SYSTEMD
+
+When to boot? To turn on the machine for first time or reboot the machine.
+POST- Power On Self Test
+
+When you boot a linux machine, how to choose GUI mode or CLI mode?
+By setting up RUNLEVEL, u can decide how your Linux machine appears after it boots.
+RUNLEVEL 3 - Non GUI mode
+RUNLEVEL 5 - GUI Mode
+RUNLEVEL can be also called as Systemd target
+
+To check which mode your linux machine operates - systemctl get-default
+
+
+Linux Package Management:
 

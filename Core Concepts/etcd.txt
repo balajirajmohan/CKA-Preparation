@@ -1,0 +1,9 @@
+etcd is a key value store that can be used to store date in the form of key value pair.
+
+How to install etcd?
+Step1: Download the etcd binary from official github page
+Step2: Untar and extract the binary so that it will result in a shell script file
+Step3: Run the file ./etcd
+
+Once you run the above command, etcd service will start and listens on port 2379
+Like kubectl to talk to kubernetes api, there is a client called etcdctl to talk to etcd service
