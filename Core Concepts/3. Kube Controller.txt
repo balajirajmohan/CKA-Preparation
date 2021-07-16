@@ -1,0 +1,20 @@
+kubernetes controller is the brain behind kubernetes which ensures the desired state of the cluster.
+There are different types of controllers available in kubernetes, out of which we will talk about below:
+
+Node Controller:
+This is the controllers which monitors worker nodes and its health.
+Kubeapi server constantly talks to kubelet and get health status of nodes every 5s.
+if something goes wrong, controller will be informed by kubeapi server and node controller will start its check. it will wait for 40 seconds
+   by default to consider a node is unhealthy and will wait for 5 mins to come back. if not, it will evict the pods and place it into another
+   health node
+
+Replication Controller:
+this is the one who monitors pods and works same way as node controllers
+
+The collection of all controllers in kubernetes is called as kube contoller manager
+
+
+How to install kube contoller manager:
+
+Kubeadm way- kubernetes will install kube contoller manager on kube-systems namespace.
+Manual way - you have to download the binary and install it on all master nodes and all other configurations.
