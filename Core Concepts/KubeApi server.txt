@@ -1,0 +1,13 @@
+Whenever you type kubectl get nodes, you are talking to kubeapi in the first place.
+kubeapi authenticates your request and pass it etcd to get the details and post the details back to you
+kubeapi is the only component that can talk to etcd.
+
+How a pod creation works basically?
+when you type kubectl run nginx --image=nginx
+             |
+             |
+             |
+   your request will first go to kubeapi. kubeapi will authenticate you based on same mechanism.
+   Also, kubeapi will check for duplicates and checksum validation from etcd. if all goes good, scheduler will always look for kubeapi commands.
+   so, scheduler posts a node placements request via kubelet into one available node and kubelet responds back to kubeapi as done.
+   kubeapi updates the state changes in etcd and also posts the user back with a pod created message on the screen
