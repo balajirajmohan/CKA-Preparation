@@ -11,3 +11,9 @@ when you type kubectl run nginx --image=nginx
    Also, kubeapi will check for duplicates and checksum validation from etcd. if all goes good, scheduler will always look for kubeapi commands.
    so, scheduler posts a node placements request via kubelet into one available node and kubelet responds back to kubeapi as done.
    kubeapi updates the state changes in etcd and also posts the user back with a pod created message on the screen
+
+Installation of kubeapi server:
+if you install kubernetes using kubeadm way, kubeapi server will be run as pod in kube-systems namespace
+if you install kubernetes using hardway or manually- you need to install kubeapi on all master nodes by downloading the binary.
+                                                     In addition to it, you need to introduce etcd to kubeapi using etcd ip and port
+   
