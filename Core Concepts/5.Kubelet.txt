@@ -1,0 +1,10 @@
+kubelet is an integral and captain of worker nodes and it is the first point of contact in worker nodes.
+As soon as scheduler got instructions from kubeapi, kubeapi will first talk to kubelet on the worker node.
+kubelet will instruct docker to pull the image and run the container.
+Apart from it, kubelet will also monitor status of pods and nodes and keep posting it to kubeapi and kubeapi inturn records the data in etcd.
+
+
+How to install kubelet in worker nodes?
+
+For both kubeadm and manual way, kubelet will not be installed by default and we need to install it explicitly with the help of github
+and configure it as a service
