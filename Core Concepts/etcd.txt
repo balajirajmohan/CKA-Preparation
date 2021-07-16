@@ -7,3 +7,8 @@ Step3: Run the file ./etcd
 
 Once you run the above command, etcd service will start and listens on port 2379
 Like kubectl to talk to kubernetes api, there is a client called etcdctl to talk to etcd service
+
+To write a key-value store in etcd- ./etcdctl set key1 value1
+Example: ./etcdctl set name balaji
+
+To get a value of a key from etcd -->> use 
