@@ -11,4 +11,6 @@ Like kubectl to talk to kubernetes api, there is a client called etcdctl to talk
 To write a key-value store in etcd- ./etcdctl set key1 value1
 Example: ./etcdctl set name balaji
 
-To get a value of a key from etcd -->> use 
+To get a value of a key from etcd -->> ./etcdctl get key1
+
+Everything you get from kubectl get commands comes from etcd
