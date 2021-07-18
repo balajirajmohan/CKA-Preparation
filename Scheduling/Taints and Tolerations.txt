@@ -1,2 +1,7 @@
 How to taint a node:
   To taint a node, we can use kubectl taint node nodename key:value:TaintEffect
+
+  What are taint effects:
+   1. NoSchedule - If pod dont have proper tolerations, it will not shcheduled at all
+    preferNoSch- If pod dont have proper tolerations, kubernetes will try its best not to schedule on a node, but not guaranteed
+    NoExecute- This comes into pitcure when already few pods are running and taints applied later on the node. it will evict all the pod
