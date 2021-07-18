@@ -1,0 +1,132 @@
+Pod Actions:
+
+To Run a Pod - kubectl run <name of pod> --image=<name of image>
+To Run a pod- kubectl run balajibr-pod --image=nginx --restart=never
+To run a pod with port- kubectl run balajibr1-pod --image=redis --port=6379 --restart=never
+To edit a running pod: kubectl edit pod <podname> ( it will edit the pod config and does not result in yaml changes)
+To get YAML file of a running pod - kubectl get pod -o yaml > name of the yaml file you wish
+To expose a Pod that is running on specific port - kubectl expose pod --port <port numbet to expose> --target-port <port the pod is actually running>
+To get pods on which nodes - kubectl get pods -o wide
+To get only limited yaml file: kubectl run --generator-run-<object>/apiversion <name of the object> --dry-run=client -o yaml
+To delete a pod immediately - kubectl delete po nginx --grace-period=0 --force
+To delete any resource immediately- kubectl delete <objec>  <object-name> --grace-period=0 --force
+To sort pods by creation time: kubectl get pods--sort-by=.metadata.creationTimestamp
+
+Labels:
+
+To get pods or filter pods with specific label--> kubectl get pods -l key=value or kubectl get pods --selector key=value
+To Assign labels to a runnig pod---? kubectl label pods <pod-name? key=value
+To get labels associated along with list of all pods -->> kubectl get pods --show-labels
+To list Pods based on two labels with same key -->> kubectl get pods -l 'env in (dev,prod)'
+
+Manifest without Executing:
+
+To output a manifest file without creating resources- kubectl run pod1 --image=httpd --dry-run -o yaml
+
+Login to a container:
+
+To login to a container: kubectl exec -it <containername> -- <command>
+
+Create Quota:
+kubectl create quota <name of the quota> --hard=cpu=1,memory=1G,pods=2
+
+Create and Delete from Yaml:
+
+To create resources from a yaml file - kubectl apply -f filename.yaml
+To create resources created from an YAML file -- kubectl delete -f filename.yaml
+
+Replicasets:
+
+To scale a replicaset- kubectl scale replicaset <replicaset name> --replicas=name
+To delete a Replicaset alone without deleting pods -->> kubectl delete rs <name> --cascade=orphan
+
+Deployments:
+
+To Create a deployment via CLI- kubectl create deployment <name> --image=<image-name> --replicas=n
+To get deployment file of an deployment before it gets created - kubectl create deployment <name> --image=<image=name> --dry-run=client -o yaml>balaji.yaml
+To check the rollout History or versions of our deployment: kubectl roullout history deployment.v1.apps/<deployment-name>
+To check what has changed in a particular revision: kubectl roullout history deployment.v1.apps/<deployment-name> --revision n where "n" stands for revison number
+To do a rollback from current verison of your dep to the previou version: kubectl rollout undo deployment.v1.apps/<deployment-name>
+To do a rollback from current version to a particular previous version: kubectl rollout undo deployment.v1.apps/<deployment-name> --to-revision=n
+To Create a deployment via CLI - kubectl create deployment <name> --image=<name> --replicas=n
+To update an image in a deployment --> kubectl set image deployment/deploymentname containername=< new image name > --record
+To Autoscale a deployment based on CPU -->> kubectl autoscale deployment <name of deployment> --min=n --max=n --cpu-percent=n%
+
+Services:
+Default Service type is - ClusterIp
+NodePort range -- >> 30000 - 32767
+To expose a pod as NodePort service -->> kubectl expose pod <pod-name> --port=<port number that service is running inside> --target-port=<port that pod 
+is running> --type=NodePort
+TO Create a service and expose a Pod - kubectl expose pod <podname> --name <servicename> --port=80 --target-port=80
+To ping a service ip from a pod : nc -z -w -v l <service name> <port that service is running>
+
+Secrets:
+
+There are 3 types of Secrets in K8s: 1. Generic 2. TLS 3. Docker Registry
+
+About Generic Secret: Generic secret is the one where we leverage in most of our Application Source codes to store confidential usernames and passwords/Key-Value Pairs.
+We can create generic secret from three ways.
+1. From a file
+2. Literal on CLI
+3. From a Directory 
+
+To Create a Secret --->> kubectl create secret [TYPE][NAME]=KEY=Value
+                         kubectl create secret generic balaji --from-literal=username=password
+
+By default, all secrets you created, they have key-value pair. If you describe them or redirect them into Yaml, you would be able to see the key. but not the value.
+Because, values are encoded with base64 and its a mandatory requirement in kubernetes.
+
+Namespace:
+To list all namespaces --->>> kubectl get namespace
+To list a object in a specific namespace: kubectl get object --namespace <name of the namespace>
+To connect to a service from one namespace to another service in another namespace: <service.name>.<ns.name>.svc.cluster.local
+
+
+Multi-container pods:
+
+To login to a particular container in a multi-container pod setup -->> kubectl exec -it <podname> -c <container-name> <command>
+To logint to a container from multi-container pods- kubectl exec <podname> -c <containername>  -i -t -- bash -il
+
+
+ConfigMaps:
+
+To create a configmap- kubectl create configmap <name> --from-literal=username=balaji --from-literal=password=123
+To Crete a configmap from file:
+kubectl create cm <name of cm> --from-file=<file path> --- it will take file name as key and rest all as values
+kubectl create cm < name of cm> --from-env-file=<file path> --- normal way as we expect
+
+Secrets:
+To create a secret- kubectl create secret <secretname> --from-literal=username=balaji --from-literal=password=abcd@123
+If you wrting a plain text as a secret in your yaml file, it wont accept. you need to encode it. To Encode, use echo -n "text" | base64
+To Decode a secret via CLI - kubectl get secret appu  -o jsonpath='{.data.username}{"\n"}' | base64 -d
+
+
+Service Account:
+To Create a Service Account: kubectl create sa <name-of-the-serviceaccount>
+
+Taints and Tolerations:
+To taint a node- kubectl taint nodes <name-of-the-node> key=value:taint-effect
+                 kubectl taint nodes node01 reason=pudikala:NoSchedule
+
+Node Selector:
+To label a node- kubectl label nodes <node-name> key=value
+When to choose node label and node affinity: single label--> go for node selector
+                                             multiple worker node and multiple labels-> go for node affinity
+
+Events:
+to get events (Ex: CloudTrail events) - kubect get events -n <namespace>
+To get events of a particular object - kubectl get events --field-selctor involvedObject.name=<name of pod or service or deployment>
+
+Logging:
+To view the log of the container- kubectl logs -f <podname>
+To View the log of a particular container in a pod- kubectl logs -f <podname> <container name>
+
+
+
+
+
+
+
+
+
+

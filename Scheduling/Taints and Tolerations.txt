@@ -1,0 +1,2 @@
+How to taint a node:
+  To taint a node, we can use kubectl taint node nodename key:value:TaintEffect

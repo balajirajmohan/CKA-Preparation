@@ -1,0 +1,31 @@
+What is the purpose of scheduler? scheduler schedules pods into nodes.
+- How the scheduler works?
+  scheduler flow consists of two steps.
+     -->> filtering
+     -->> scoring
+      filtering- first it identifies the correct node that can match the pods requirements such as cpu memory and restrcitons
+                 such as taints and tolerations. Once it identifies the correct node, step 2 will happen.
+      scoring: This is the actual implementation. Once the node the identified, it will schedules the pod. But in case of multiple
+                eligible nodes, it will do a score based ranking and picks the best out of it.
+
+
+kube scheduler is the default scheduler mechanism in kubernetes. if you dont have any scheduler, your pods will be in pending state.
+If you dont have any scheduler, you still can assign your pods into your nodes. In your pod yaml, you have to write nodeName parameter.
+You can specify node name only during the start time or before kubectl apply -f
+
+Can you assing a pod to a node when it is in pending state? Yes, you can create an object called binding with node name as spec.
+Once you create the binding, you can call Pods api and post the binding you created.
+
+YAML file for binding:
+
+apiVersion: v1
+kind: Binding
+metadata:
+   name: balaji ----->>> Random name for the binding
+target:
+  apiVersion: v1
+  kind: node
+  name: workernode-1 --->> name of the node that you want to schedule your pod
+
+Once you create the binding, you can post the binding to pods api
+

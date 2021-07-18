@@ -1,0 +1,2 @@
+ClusterIP is a kind of Service in kubernetes and it is mainly used to expose certain group of pods as a single interface to another service or
+just a single pod within the kubernetes cluster. It is not meant to use the application outside or expose the application to outside
