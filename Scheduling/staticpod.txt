@@ -1,0 +1,17 @@
+What is a static pod?
+
+we all know that kubelet is reponsible for creating pod. but kubelet needs api server to provide instruction and manifest
+scheduler to instruct kubelet to run pods
+etcd to store the results.
+
+But what if you dont have api server, scheduler, etcd and no master node.
+you will be left only with worker nodes. worker nodes only have kubelet, kube proxy and docker installed.
+
+But still, kubelet is capable of running a pod, restart the pod if crashes. Since there is no kube api server to provide yaml,
+    you have to login to worker node and put the pod yaml in /etc/kubernetes/manifests folder.
+
+
+As soon as you put the file, kubelet will scan the file and provision the pod.any changes in that file will lead to change in resources.
+
+Note: it works only at pod level and cannot create deployment, replicaset etc. Such pod is called as STATIC POD.
+

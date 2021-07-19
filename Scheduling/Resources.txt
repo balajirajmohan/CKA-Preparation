@@ -1,0 +1,8 @@
+If you take a pod into consideration, every pod needs 3 important resources as their requirements
+  -- CPU
+  -- MEMORY
+  -- DISK
+
+We know that pods can have a certain default resource requirements that it can take over the runtime. But where does it come from?
+While creating a namespace, we need to create a mem-limit-range and cpu-limit-range yaml. it is different from quotas
+If a Container is created in a namespace that has a default memory limit, and the Container does not specify its own memory limit, then the Container is assigned the default memory limit.

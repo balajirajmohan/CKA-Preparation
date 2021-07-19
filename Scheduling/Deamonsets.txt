@@ -1,0 +1,10 @@
+replicasets deployments are used to run your application pods in worker nodes.
+But Deamonset is a single pod that runs on all nodes that do some tasks. it may be or may not be your application pod,
+ but use cases like logging and kubeproxy are well known deamonsets runs on every worker nodes.
+
+ How to write deamonsets yaml: it is same as that of replicaset yaml
+
+ ****important**** - you cannot create a daemonset object via imperative yaml. either generate a deployment yaml and
+                    remove the deployment attributes and modify the kind to daemonset and do a kubectl apply -f
+
+                    you have to add the namespace attribute in yaml file
