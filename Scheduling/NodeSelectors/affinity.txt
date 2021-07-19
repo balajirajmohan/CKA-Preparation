@@ -1,0 +1,1 @@
+NodeSelectors: this uses nodes labels and we can add node labels in our pod configuration to schedule a pod into a particular node
