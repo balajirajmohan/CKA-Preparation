@@ -15,3 +15,33 @@ As soon as you put the file, kubelet will scan the file and provision the pod.an
 
 Note: it works only at pod level and cannot create deployment, replicaset etc. Such pod is called as STATIC POD.
 
+********** Important ******************
+
+/etc/kubernetes/manifest - is this the only folder that we are supposed to use? well, not like that. its your choice.
+                           But kubelet should know where to look for the manifest file and you need to instruct it.
+
+How to tell kubelet that where to look for pod manifest in this case?
+
+when you install kubelet as a service in a manual way, you need to give this parameter --pod-manifest-path=/etc/kubernetes/manifest
+when you install cluster using kubeadm- rather than having giving --pod-manifest-path, in kubelet service conig,
+                                         it uses a parameter called --config=kubeconfig.yaml
+                        Inside kubeconfig yaml, below data will be there
+                          staticPodPath: /etc/kubernetes/manifest
+
+*********Important**********
+
+Scenario 1: without master, only with the help of kubelet, balaji created a static pod. Later vaidhee scolds balaji to
+            install master node and all its control plane components. When balaji do kubectl get po, he will still able to see
+            the static pod created as a pod, but cannot do any changes (only read) since it is not created,instructed by kube-api
+
+Scenario 2: From where kubelet receive instructions:
+             1. Primarily using http call from kube-api server ( all resources can be created)
+             2. In case kubeapi is not installed, kubelet looks for pod manifest in /etc/kubernetes/manifest folder in worker nodes
+                and create only pods
+
+
+How the pod will get name incase of static pods- even though the yaml have name of the pod, it will be appended by worker node name
+                                                  example: balaji-pod-workernode1
+
+*********Important*********
+all control plane will are deployed as static pods when you install kubernetes via kubeadm
