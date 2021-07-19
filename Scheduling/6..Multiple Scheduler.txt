@@ -1,0 +1,14 @@
+We know that kube scheduler is reponsible for choosing a right node for pod based on taints, node affinity.
+If you choose to go for default shcheduler, it is called as kube-scheduler.
+
+But if you are not happy with the default shcheduler, you can bring your own scheduler in addition to default one.
+So you will be having two schedulers which is called as multiple shcheduler.
+
+Ways to do it?
+edit the default shcheduler yaml and recreate it to have your own custom scheduler.
+Or dont delete the existing scheduler, with the custom yaml, you can have new one as secondary.
+
+How to create a second custom scheduler:
+
+if you had setup your kubernetes cluster using kubeadm, you would be having of kube scheduler yaml in /etc/kubernetes/manifest/kube-scheduler.yaml
+take a copy of it and create a new schduler by changing name, port, leader-elect as true
