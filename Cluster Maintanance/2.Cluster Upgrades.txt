@@ -1,0 +1,69 @@
+We all know that kubernetes is made up of multiple components such as worker node components and control plane components.
+
+Control Plane components:
+kube api server - Main component
+kube controller
+kube scheduler
+etcd
+
+Worker nodes:
+kubelet
+kube proxy
+docker or crio 
+
+A cluster is made up of All these components.
+
+****Importanr****
+
+kubeapi should be always in higher version than rest of the components
+ex: if kubeapi is 1.20, then controller should be 1.20 or 1.19, it cannot exceed 1.20 like 1.21
+
+kubectl is the only component that can be higher than kubeapi
+etcd coredns are not managed by kubernetes and we should check the comptability wrt to kubeapi
+
+How to upgrade:
+Managed kubernetes: can be done on UI
+Kubeadm way cluster: kubeadm upgrade plan and kubeadm upgrade apply
+hard way or manual way: we have to do on our own
+
+
+Upgrade Strategy:
+
+Type1: Take all node down, take a down time and upgrade all the nodes
+Type2: Take 1 node at a time, drain the pods, upgrade the nodes and restart the nodes and keep on going. This is without downtime.
+Type3: Add one new node with latest version and remove 1 node and cycle keeps on going and this will be applicable for Cloud based kubernetes cluster
+
+
+Steps involved in upgrading a Cluster:
+
+There are two stages involved in Cluster upgrade: 1. upgrade the master 2. upgrade the worker nodes
+
+1. Upgrade the Masters.
+
+For example, if we bring the master down, it does not mean that your worker nodes will not work. They will continue to run pods as normal. But replication contoller and kubectl
+will not work, since kubectl needs api which is in master and replication controller needs to talk to kube controller which is in master
+
+Kubeadm way of upgrading the master: v1.11 to v1.13
+
+***Important***-  if you need to upgrade, you can go to one version up which means 1.11 to 1.12 at a time and cannot go to 1.13
+
+1. Upgrade the kubeadm tool - apt-get update -y kubeadm=1.12.0
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.19.6-00 && \
+apt-mark hold kubeadm
+2. plan the upgrade- kubeadm upgrade plan v1.12.0 - it is like terraform apply
+3. Apply the Plan- kubeadm upgrade apply v1.12.0 - applies the upgrade
+4. Upgrade kubelet on master (optional, only if you have kubelet running - apt-get update -y kubelet=v1.12.0
+5. restart the kubelet service - systemctl restart kubelet
+
+
+2. Upgrade the Workers:
+
+1. cordon and drain the node
+2. update kubeadm and kubelet on worker node
+3. restart the node
+4. Uncordon the node
+
+
+Cycle goes on
+

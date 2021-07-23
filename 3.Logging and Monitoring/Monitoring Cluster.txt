@@ -1,0 +1,11 @@
+we all know that it is essential to monitor kubernetes cluster.
+
+There are two levels of monitoring kubernetes cluster-
+  1. Node level monitoring
+  2. Pod level monitoring
+
+Heapster is a kubernetes based monitoring tool and it is deprecated now. Metrics server is another tool
+which can be deployed and nodes and pods can be monitored using kubectl top nodes and top pods
+
+
+**** This is a simple component in kubernetes CKA exam ******

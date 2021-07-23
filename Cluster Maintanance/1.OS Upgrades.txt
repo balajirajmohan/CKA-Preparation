@@ -1,0 +1,18 @@
+We all know that some point of time, we might have to upgrade the worker nodes as a part of shceduling activity.
+If we do so. pods and other objects running on worker nodes might get impacted. If they have replica sets, well and good.
+
+But if you have a pod running on node1 and without replicaset and if you want to patch the node01, then you have no options. your application will be down.
+
+So you have to first drain the node and move the pods to another node and then start working on your faulty node.
+
+When will a pod will evict from node? Say if your node is down due to some unknown reasons and came online after 2 minutes, pods and all objects will be back online.
+But if a node is not healthy for more than 5 minutes, kube controller will consider the node as unhealthy and pods will be evicted. eventhough it comes back online,
+the resources left is left. it will never come back. it might come back to the node incase of new deployment.
+
+kubectl drain nodename - it will terminate the pods in current node and safely recreate the pods on healthy node
+kubectl uncordon nodename - after draining you fix the node and once it come back online, you have to ubcordon and new pods will be schedulable on this node
+kubectl cordon nodename- it will mark the node unschedulable and will not accept new pods, but new pods will stay in the same pod.
+
+1st Step: cordon-->> Dont accept new guests
+2nd Step: Drain--->> safely move the existing guests to another room
+3rd: Uncordon -->> after maintanence, accepting new guests

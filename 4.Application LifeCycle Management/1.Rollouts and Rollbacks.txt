@@ -1,0 +1,2 @@
+Whenever we create our application and make a deployment first time it is called as rollout and revision 1
+when you update the deployment, it is called as rollout2 and revision2
