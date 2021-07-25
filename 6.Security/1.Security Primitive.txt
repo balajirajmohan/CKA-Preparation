@@ -1,0 +1,30 @@
+When talking about Kubernetes Security, the very first step is to secure the VM's or Physical servers that is running the kubernetes.
+
+Some of the key measures we can take is:
+1. SSH based authentication only to nodes
+2. No Open Ports
+3. Put them in private subnets and no internet connection
+4. Sharing access only to limited people
+etc...
+
+But in CKA, we need to look at kubernetes security in detail like how we can secure kubernetes components like api server, etcd, controller, scheduler, kubelet etc
+
+Kube api server is center of all operations and our kubectl commands interacts with kube api server and this is the first line of defence.
+
+1. Authentication- who can access
+a. usernames and passwords in plain files
+b. username and tokens
+c. certificates
+d. LDAP
+e. Service accounts
+
+2. Authorization - what they can do once you get the access
+a. RBAC- Where users are put in groups with permissions
+b. ABAC- Attribute based access controls
+c. Node authorization
+d. webhooks
+
+
+All communication between components happens via Certificates. Ex api to etcd, api to controller
+
+Communication between pods security - Network Policies 

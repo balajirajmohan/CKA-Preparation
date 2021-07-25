@@ -1,0 +1,20 @@
+Lets say if you want to upgrade your kubernetes cluster, first you have to take a backup of all resources, etcd.
+
+How do you backup resources - if you provisioned all resources using yaml files, you can have them in your github
+
+But, if you created some of the resources using imperative way, you have to do kubectl get all --all-namespaces-o yaml > all-resources.yaml
+
+How to take backup if etcd?
+
+etcd stores info about state of cluster and rathe than taking backup of resources, take a backup of etcd cluster itself.
+
+etcd stores all data in /var/lib/etcd with config key --data-dir
+
+How to take snapshots:
+1. Take a snapshot of the db-->>  ETCDCTL_API=3 etcdctl snapshot save balaji.db
+2. To view the snapshot of db --->> ETCDCTL_API=3 etcdctl snapshot status balaji.db
+3. To restore the backup - stop the kubeapi first, service kube-apiserver stop
+                           ETCDCTL_API=3 etcdctl snapshot restore balaji.db
+                           systemctl daemon reload
+                           service kube-apiserver start
+                           

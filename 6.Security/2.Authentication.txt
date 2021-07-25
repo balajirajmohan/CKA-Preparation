@@ -1,0 +1,13 @@
+Like we create Service account, we cannot do kubectl create user balaji in kubernetes since Kubernetes dont handle user creation natively.
+
+Then how do you do? The very basic way to do is basic auth setup where you can write password,username,userid,groupid in a simple plain .csv file or text file
+
+Ex: balaji@123,balajibrb,u001,balajigrp
+
+So now you have created a auth file called login-details.csv and you need to tell kubeapi to use this file.
+
+You need to edit /etc/kubernetes/manifests/kubeapi-server.yaml and edit the command section to add this line --basic-auth-file=login-details.csv. So once you add, since kubeapi
+is a static, any changes in file will recreate the pod.
+
+Or you can add that file as a volume mount for your kube api pod in its yaml
+
